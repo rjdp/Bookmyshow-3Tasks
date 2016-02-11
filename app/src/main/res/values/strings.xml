@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">BookMyShow Assignment</string>
+
+    <string name="dummy_section_text">Section %1d is just a dummy section.</string>
+
+    <string name="demo_splash_text">Show Splash Screen</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="title_activity_start_splach">StartSplachActivity</string>
+</resources>
