@@ -137,7 +137,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
                 Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_section_splash, container, false);
 
-            // Demonstration of a collection-browsing activity.
+           
             rootView.findViewById(R.id.demo_splash)
                     .setOnClickListener(new View.OnClickListener() {
                         @Override
