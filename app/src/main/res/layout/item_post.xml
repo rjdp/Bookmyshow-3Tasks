@@ -55,7 +55,7 @@
 
         <!--android:textAppearance="?android:textAppearanceSmall"/>-->
 
-    <com.buggydebugger.bookmyshow3tasks.ExpandingLayout
+    <com.buggydebugger.bookmyshow3tasks.expandlistview.ExpandingLayout
         android:id="@+id/expanding_layout"
         android:layout_height="wrap_content"
 
@@ -75,7 +75,7 @@
             android:paddingRight="20dp"
             android:paddingBottom="20dp"/>
 
-    </com.buggydebugger.bookmyshow3tasks.ExpandingLayout>
+    </com.buggydebugger.bookmyshow3tasks.expandlistview.ExpandingLayout>
 
 
 </LinearLayout>

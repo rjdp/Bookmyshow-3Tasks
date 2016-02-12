@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.buggydebugger.bookmyshow3tasks;
+package com.buggydebugger.bookmyshow3tasks.expandlistview;
 
 import android.app.Activity;
 import android.content.Context;
@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
+import com.buggydebugger.bookmyshow3tasks.R;
 
 import java.util.List;
 

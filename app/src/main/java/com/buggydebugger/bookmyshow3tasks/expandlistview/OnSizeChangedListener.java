@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.buggydebugger.bookmyshow3tasks;
+package com.buggydebugger.bookmyshow3tasks.expandlistview;
 
 /**
  * A listener used to update the list data object when the corresponding expanding

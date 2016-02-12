@@ -28,6 +28,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.VideoView;
 
+import com.buggydebugger.bookmyshow3tasks.expandlistview.CustomArrayAdapter;
+import com.buggydebugger.bookmyshow3tasks.expandlistview.ExpandableListItem;
+import com.buggydebugger.bookmyshow3tasks.expandlistview.ExpandingListView;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

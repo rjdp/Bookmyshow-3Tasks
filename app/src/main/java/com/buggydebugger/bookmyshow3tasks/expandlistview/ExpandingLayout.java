@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.buggydebugger.bookmyshow3tasks;
+package com.buggydebugger.bookmyshow3tasks.expandlistview;
 
 import android.content.Context;
 import android.util.AttributeSet;

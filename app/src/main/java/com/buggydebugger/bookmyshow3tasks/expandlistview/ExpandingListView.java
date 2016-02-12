@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.buggydebugger.bookmyshow3tasks;
+package com.buggydebugger.bookmyshow3tasks.expandlistview;
 
 
 import android.animation.Animator;
@@ -30,6 +30,8 @@ import android.view.ViewTreeObserver;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.buggydebugger.bookmyshow3tasks.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

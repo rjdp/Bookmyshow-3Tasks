@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.buggydebugger.bookmyshow3tasks;
+package com.buggydebugger.bookmyshow3tasks.expandlistview;
 
 /**
  * This custom object is used to populate the list adapter. It contains a reference
