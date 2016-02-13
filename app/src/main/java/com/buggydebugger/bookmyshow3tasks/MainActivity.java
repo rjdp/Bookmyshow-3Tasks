@@ -247,10 +247,6 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
 
-            // Create some dummy data for the ListView.  Here's a sample weekly forecast
-
-
-
              mData = new ArrayList<ExpandableListItem>();
 
             adapter = new CustomArrayAdapter(getActivity(), R.layout.item_post, mData);
