@@ -23,6 +23,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
+import android.widget.Filterable;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -32,22 +34,47 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.buggydebugger.bookmyshow3tasks.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * This is a custom array adapter used to populate the listview whose items will
  * expand to display extra content in addition to the default display.
  */
-public class CustomArrayAdapter extends ArrayAdapter<ExpandableListItem> {
+public class CustomArrayAdapter extends ArrayAdapter<ExpandableListItem> implements Filterable {
     ColorGenerator generator = ColorGenerator.MATERIAL;
-    private List<ExpandableListItem> mData;
+    private List<ExpandableListItem> mData=null;
+    private PostFilter postFilter;
     private int mLayoutViewResourceId;
+    private List<ExpandableListItem> filteredmData=null;
 
     public CustomArrayAdapter(Context context, int layoutViewResourceId,
                               List<ExpandableListItem> data) {
         super(context, layoutViewResourceId, data);
         mData = data;
+        filteredmData=data;
         mLayoutViewResourceId = layoutViewResourceId;
+        getFilter();
+    }
+    @Override
+    public int getCount() {
+        return filteredmData.size();
+    }
+
+
+    @Override
+    public ExpandableListItem getItem(int i) {
+        return filteredmData.get(i);
+    }
+
+    /**
+     * Get user list item id
+     * @param i item index
+     * @return current item id
+     */
+    @Override
+    public long getItemId(int i) {
+        return i;
     }
 
     /**
@@ -60,7 +87,7 @@ public class CustomArrayAdapter extends ArrayAdapter<ExpandableListItem> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        final ExpandableListItem object = mData.get(position);
+        final ExpandableListItem object = filteredmData.get(position);
 
         if(convertView == null) {
             LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
@@ -107,6 +134,54 @@ public class CustomArrayAdapter extends ArrayAdapter<ExpandableListItem> {
         }
 
         return convertView;
+    }
+
+
+    @Override
+    public PostFilter getFilter() {
+        if (postFilter == null) {
+            postFilter = new PostFilter();
+        }
+
+        return postFilter;
+    }
+
+    private class PostFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults filterResults = new FilterResults();
+            if (constraint!=null && constraint.length()>0) {
+                ArrayList<ExpandableListItem> tempList = new ArrayList<ExpandableListItem>();
+
+                // search content in friend list
+                for (ExpandableListItem post : mData) {
+                    if (post.getTitle().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                        tempList.add(post);
+                    }
+                }
+
+                filterResults.count = tempList.size();
+                filterResults.values = tempList;
+            } else {
+                filterResults.count = mData.size();
+                filterResults.values = mData;
+            }
+
+            return filterResults;
+        }
+
+        /**
+         * Notify about filtered list to ui
+         * @param constraint text
+         * @param results filtered result
+         */
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            filteredmData = (ArrayList<ExpandableListItem>) results.values;
+            notifyDataSetChanged();
+        }
     }
 
 

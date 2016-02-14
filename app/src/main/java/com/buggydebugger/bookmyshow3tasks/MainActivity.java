@@ -2,6 +2,7 @@ package com.buggydebugger.bookmyshow3tasks;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
@@ -15,6 +16,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -25,6 +27,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -207,7 +210,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
      * Posts Fragment
      */
 
-    public static class PostFragment extends Fragment {
+    public static class PostFragment extends Fragment implements SearchView.OnQueryTextListener {
         private ExpandingListView mListView;
         private ProgressBar spinner;
         private CustomArrayAdapter adapter;
@@ -223,11 +226,22 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             // Add this line in order for this fragment to handle menu events.
             setHasOptionsMenu(true);
 
+
         }
 
         @Override
         public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
             inflater.inflate(R.menu.postfragment, menu);
+            SearchManager searchManager = (SearchManager)
+                    getActivity().getSystemService(Context.SEARCH_SERVICE);
+            MenuItem searchMenuItem = menu.findItem(R.id.search);
+            SearchView searchView = (SearchView) searchMenuItem.getActionView();
+
+            searchView.setSearchableInfo(searchManager.
+                    getSearchableInfo(getActivity().getComponentName()));
+            searchView.setSubmitButtonEnabled(true);
+            searchView.setOnQueryTextListener(this);
+
 
         }
 
@@ -235,7 +249,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
         public boolean onOptionsItemSelected(MenuItem item) {
             // Handle action bar item clicks here. The action bar will
             // automatically handle clicks on the Home/Up button, so long
-            // as you specify a parent activity in AndroidManifest.xml.
+            // as you specify a parent activity in AndroidManifest.searchable.
             int id = item.getItemId();
             if (id == R.id.action_refresh) {
                 populate();
@@ -258,7 +272,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             mListView.setDivider(new ColorDrawable(0x99F10529));   //0xAARRGGBB
             mListView.setDividerHeight(2);
 
-
+            mListView.setTextFilterEnabled(true);
             rootView.findViewById(R.id.progressBar).setVisibility(View.GONE);
             retryButton=(Button)rootView.findViewById(R.id.retry_button);
             retryButton.setOnClickListener(new View.OnClickListener() {
@@ -320,6 +334,23 @@ public void populate(){
             NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
             return  ( activeNetwork != null &&
                     activeNetwork.isConnectedOrConnecting());
+        }
+
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            if (TextUtils.isEmpty(newText)) {
+                mListView.clearTextFilter();
+            }
+            else {
+                mListView.setFilterText(newText);
+            }
+
+            return true;
         }
 
 
