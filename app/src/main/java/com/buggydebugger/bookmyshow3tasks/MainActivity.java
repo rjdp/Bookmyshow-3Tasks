@@ -197,7 +197,7 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
             }
             else{
                 if(videoView!=null)
-                videoView.stopPlayback();
+                videoView.pause();
             }
         }
 
