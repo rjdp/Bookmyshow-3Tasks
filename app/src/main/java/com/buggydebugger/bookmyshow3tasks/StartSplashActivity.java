@@ -1,9 +1,11 @@
 package com.buggydebugger.bookmyshow3tasks;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Window;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -27,7 +29,7 @@ public class StartSplashActivity extends Activity {
                 finish();
                 startActivity(new Intent(getBaseContext(), MainActivity.class));
             }
-        }, 3000);
+        }, 4000);
     }
 
 
@@ -41,8 +43,13 @@ public class StartSplashActivity extends Activity {
         Animation alpha;
         Animation translate;
         imageView = (ImageView) findViewById(R.id.imageView3);
-        pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
-        imageView.startAnimation(pulse);
+//        pulse = AnimationUtils.loadAnimation(this, R.anim.pulse);
+//        imageView.startAnimation(pulse);
+        ObjectAnimator animation = ObjectAnimator.ofFloat(imageView, "rotationY", 0.0f, 360f);
+        animation.setDuration(1000);
+        animation.setRepeatCount(ObjectAnimator.INFINITE);
+        animation.setInterpolator(new AccelerateDecelerateInterpolator());
+        animation.start();
 
         alpha = AnimationUtils.loadAnimation(this, R.anim.alpha);
         RelativeLayout relativeLayout=(RelativeLayout) findViewById(R.id.rel_lay2);
