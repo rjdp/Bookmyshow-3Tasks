@@ -1,8 +1,10 @@
 package com.buggydebugger.bookmyshow3tasks;
+
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -253,7 +255,8 @@ public class MainActivity extends FragmentActivity implements ActionBar.TabListe
              rootView = inflater.inflate(R.layout.fragment_main, container, false);
             mListView = (ExpandingListView) rootView.findViewById(R.id.listview_post);
             mListView.setAdapter(adapter);
-            mListView.setDivider(null);
+            mListView.setDivider(new ColorDrawable(0x99F10529));   //0xAARRGGBB
+            mListView.setDividerHeight(2);
 
 
             rootView.findViewById(R.id.progressBar).setVisibility(View.GONE);
