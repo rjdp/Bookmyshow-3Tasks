@@ -435,6 +435,8 @@ public void populate(){
                     urlConnection = (HttpURLConnection) url.openConnection();
                     urlConnection.setRequestMethod("GET");
                     urlConnection.connect();
+                    if(urlConnection.getResponseCode()!=200)
+                        return null;
 
                     InputStream inputStream = urlConnection.getInputStream();
                     StringBuffer buffer = new StringBuffer();
