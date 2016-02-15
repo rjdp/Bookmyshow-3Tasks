@@ -88,10 +88,20 @@ public class CustomArrayAdapter extends ArrayAdapter<ExpandableListItem> impleme
     public View getView(int position, View convertView, ViewGroup parent) {
 
         final ExpandableListItem object = filteredmData.get(position);
-
+ViewHolder holder;
         if(convertView == null) {
+            holder =new ViewHolder();
             LayoutInflater inflater = ((Activity) getContext()).getLayoutInflater();
             convertView = inflater.inflate(mLayoutViewResourceId, parent, false);
+            holder.imgView = (ImageView)convertView.findViewById(R.id.imageView);
+            holder.titleView = (TextView)convertView.findViewById(R.id.tvTitle);
+            holder.textView = (TextView)convertView.findViewById(R.id.tvBody);
+            holder.idView = (TextView)convertView.findViewById(R.id.tvId);
+            convertView.setTag(holder);
+
+        }
+        else{
+            holder=(ViewHolder)convertView.getTag();
         }
 
         LinearLayout linearLayout = (LinearLayout)(convertView.findViewById(
@@ -100,24 +110,21 @@ public class CustomArrayAdapter extends ArrayAdapter<ExpandableListItem> impleme
                 (AbsListView.LayoutParams.MATCH_PARENT, object.getCollapsedHeight());
         linearLayout.setLayoutParams(linearLayoutParams);
 
-        ImageView imgView = (ImageView)convertView.findViewById(R.id.imageView);
-        TextView titleView = (TextView)convertView.findViewById(R.id.tvTitle);
-        TextView textView = (TextView)convertView.findViewById(R.id.tvBody);
-        TextView idView = (TextView)convertView.findViewById(R.id.tvId);
-        titleView.setText(object.getTitle());
+
+        holder.titleView.setText(object.getTitle());
 
         int color = generator.getColor(object.getUserId());
         TextDrawable drawable = TextDrawable.builder()
                 .buildRound(Integer.toString(object.getUserId()), color);
 
 
-        imgView.setImageDrawable(drawable);
+        holder.imgView.setImageDrawable(drawable);
 
 
 //        imgView.setImageBitmap(getCroppedBitmap(BitmapFactory.decodeResource(getContext()
 //                .getResources(), object.getImgResource(), null)));
-        textView.setText(object.getText());
-        idView.setText("#"+object.getId());
+        holder.textView.setText(object.getText());
+        holder.idView.setText("#"+object.getId());
 
         convertView.setLayoutParams(new ListView.LayoutParams(AbsListView.LayoutParams.MATCH_PARENT,
                 AbsListView.LayoutParams.WRAP_CONTENT));
@@ -134,6 +141,14 @@ public class CustomArrayAdapter extends ArrayAdapter<ExpandableListItem> impleme
         }
 
         return convertView;
+    }
+
+    private static class ViewHolder {
+       ImageView imgView;
+        TextView titleView;
+        TextView idView;
+        TextView textView;
+
     }
 
 
